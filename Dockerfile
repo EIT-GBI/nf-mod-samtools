@@ -46,6 +46,7 @@ RUN curl -fsSL --retry 3 -o "samtools.tar.bz2" "${PROG_URL}" \
 
 FROM debian:${DEBIAN_VERSION} AS runtime
 
+ARG DEBIAN_VERSION
 ARG PROG_VERSION
 
 LABEL org.opencontainers.image.title="samtools" \
