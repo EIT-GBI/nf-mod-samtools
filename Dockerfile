@@ -29,7 +29,7 @@ RUN apt-get update \
 WORKDIR /tmp/build
 
 RUN curl -fsSL --retry 3 -o "samtools.tar.bz2" "${PROG_URL}" \
-    && sha256sum -c - <<< "${PROG_SHA256}  samtools.tar.bz2" \
+    && echo "${PROG_SHA256}  samtools.tar.bz2" | sha256sum -c - \
     && tar -xjf samtools.tar.bz2 \
     && cd "samtools-${PROG_VERSION}" \
     && ./configure \
