@@ -1,14 +1,13 @@
 process SAMTOOLS_SORT {
-    tag "${sample}"
+    tag "${meta.id}"
 
     publishDir "${params.outdir}/sorted", mode: 'link'
 
     input:
-    //val sample
-    tuple val(sample), path(sam)
+    tuple val(meta), path(sam)
 
     output:
-    tuple val(sample), path("${sample}.sorted.bam"), emit: bam
+    tuple val(meta), path("${meta.id}.sorted.bam"), emit: bam
 
     script:
     def args = task.ext.args ?: ''
@@ -16,7 +15,12 @@ process SAMTOOLS_SORT {
     samtools sort \\
         ${args} \\
         -@ ${task.cpus} \\
-        -o ${sample}.sorted.bam \\
+        -o ${meta.id}.sorted.bam \\
         ${sam}
+    """
+
+    stub:
+    """
+    touch ${meta.id}.sorted.bam
     """
 }
