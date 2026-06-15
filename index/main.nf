@@ -1,14 +1,13 @@
 process SAMTOOLS_INDEX {
     tag "${meta.id}"
 
-    publishDir "${params.outdir}/index", mode: 'link'
+    publishDir "${params.outdir}/alignment", mode: 'link'
 
     input:
-    tuple val(meta), path(input)
+    tuple val(meta), path(bam)
 
     output:
-    tuple val(meta), path("*.bai"), emit: bai, optional: true
-    tuple val(meta), path("*.csi"), emit: csi, optional: true
+    tuple val(meta), path(bam), path("*.bai"), emit: bam
 
     script:
     def args = task.ext.args ?: ''
@@ -16,11 +15,11 @@ process SAMTOOLS_INDEX {
     samtools index \\
         ${args} \\
         -@ ${task.cpus} \\
-        ${input}
+        ${bam}
     """
 
     stub:
     """
-    touch ${input}.bai
+    touch ${bam}.bai
     """
 }

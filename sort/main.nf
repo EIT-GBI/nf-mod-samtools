@@ -1,7 +1,7 @@
 process SAMTOOLS_SORT {
     tag "${meta.id}"
 
-    publishDir "${params.outdir}/sorted", mode: 'link'
+    publishDir "${params.outdir}/alignment", mode: 'link'
 
     input:
     tuple val(meta), path(sam)

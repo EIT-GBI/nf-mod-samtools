@@ -8,7 +8,7 @@ process SAMTOOLS_FLAGSTAT {
     tuple val(meta), path(bam)
 
     output:
-    tuple val(meta), path("${meta.id}.flagstat"), emit: flagstat
+    tuple val(meta), path("${meta.id}.flagstat.txt"), emit: flagstat
 
     script:
     def args = task.ext.args ?: ''
@@ -17,11 +17,11 @@ process SAMTOOLS_FLAGSTAT {
         ${args} \\
         -@ ${task.cpus} \\
         ${bam} \\
-        > ${meta.id}.flagstat
+        > ${meta.id}.flagstat.txt
     """
 
     stub:
     """
-    touch ${meta.id}.flagstat
+    touch ${meta.id}.flagstat.txt
     """
 }
