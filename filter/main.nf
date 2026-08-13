@@ -15,7 +15,7 @@ process SAMTOOLS_FILTER {
 
     script:
     def args = task.ext.args ?: ''
-    def expr = "avg(qual) >= ${params.filter.min_read_quality} && length(seq) >= ${params.filter.min_read_length}"    """
+    def expr = "avg(qual) >= ${params.filter.min_read_quality} && length(seq) >= ${params.filter.min_read_length}"    
     """
     samtools view \\
         ${args} \\
