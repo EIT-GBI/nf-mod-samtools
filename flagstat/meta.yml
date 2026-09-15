@@ -1,0 +1,29 @@
+name: samtools_flagstat
+description: |
+  Alignment summary metrics for a BAM.
+keywords:
+  - metrics
+  - qc
+  - bam
+  - samtools
+tools:
+  - samtools:
+      description: |
+        samtools
+
+input:
+  - bam:
+      type: map/file
+      description: |
+        Sample metadata map and a BAM.
+      pattern: "tuple val(meta), path(bam)"
+
+output:
+  - flagstat:
+      type: map/file
+      description: |
+        samtools flagstat report.
+      pattern: "tuple val(meta), path(*.flagstat.txt)"
+
+authors:
+  - "EIT Generative Biology Institute"

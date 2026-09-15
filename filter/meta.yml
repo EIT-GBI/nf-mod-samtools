@@ -1,0 +1,29 @@
+name: samtools_filter
+description: |
+  Filter reads by a samtools expression. Intended mainly for long-read data, keeping MM/ML modified-base tags intact.
+keywords:
+  - filter
+  - bam
+  - quality
+  - samtools
+tools:
+  - samtools:
+      description: |
+        samtools
+
+input:
+  - bam:
+      type: map/file
+      description: |
+        Sample metadata map and a BAM.
+      pattern: "tuple val(meta), path(bam)"
+
+output:
+  - filtered:
+      type: map/file
+      description: |
+        Filtered BAM and its index.
+      pattern: "tuple val(meta), path(*.filtered.bam), path(*.filtered.bam.bai)"
+
+authors:
+  - "EIT Generative Biology Institute"

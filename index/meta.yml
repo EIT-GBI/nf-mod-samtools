@@ -1,0 +1,28 @@
+name: samtools_index
+description: |
+  Index a coordinate-sorted BAM.
+keywords:
+  - index
+  - bam
+  - samtools
+tools:
+  - samtools:
+      description: |
+        samtools
+
+input:
+  - bam:
+      type: map/file
+      description: |
+        Sample metadata map and a coordinate-sorted BAM.
+      pattern: "tuple val(meta), path(bam)"
+
+output:
+  - bam:
+      type: map/file
+      description: |
+        The BAM together with its index.
+      pattern: "tuple val(meta), path(bam), path(*.bai)"
+
+authors:
+  - "EIT Generative Biology Institute"

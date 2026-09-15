@@ -1,31 +1,69 @@
 # nf-mod-samtools
 
-Nextflow module for Samtools. Used as a git submodule by pipelines.
+Nextflow module for SAMtools (BAM/CRAM manipulation). Used as a git submodule by pipelines.
 
-Image: `ghcr.io/eit-gbi/nf-mod-samtools:latest`
+Image: `ghcr.io/eit-gbi/nf-mod-samtools`
 
 ## Processes
 
-Each subtool lives in its own folder (nf-core style), with a `main.nf` process and a `meta.yml`:
+Each subtool lives in its own folder (nf-core style), with a `main.nf`, a
+`meta.yml` and an nf-test case under `tests/`.
 
-| Process | Path | Input → Output |
-| --- | --- | --- |
-| `SAMTOOLS_SORT` | `sort/main.nf` | `tuple(meta, sam/bam/cram)` → `tuple(meta, sorted.bam)` |
-| `SAMTOOLS_INDEX` | `index/main.nf` | `tuple(meta, bam/cram)` → `tuple(meta, bai/csi)` |
-| `SAMTOOLS_FAIDX` | `faidx/main.nf` | `tuple(meta, fasta)` → `tuple(meta, fai[, gzi])` |
-| `SAMTOOLS_FLAGSTAT` | `flagstat/main.nf` | `tuple(meta, bam/cram)` → `tuple(meta, flagstat)` |
+| Process | Path | Inputs | Emits |
+| --- | --- | --- | --- |
+| `SAMTOOLS_FAIDX` | `faidx/main.nf` | `tuple val(meta), path(fasta)` | `fai`, `gzi` |
+| `SAMTOOLS_FASTQ` | `fastq/main.nf` | `tuple val(meta), path(bam)` | `reads` |
+| `does` | `filter/main.nf` | `tuple val(meta), path(bam)` | `filtered` |
+| `SAMTOOLS_FLAGSTAT` | `flagstat/main.nf` | `tuple val(meta), path(bam)` | `flagstat` |
+| `SAMTOOLS_INDEX` | `index/main.nf` | `tuple val(meta), path(bam)` | `bam` |
+| `SAMTOOLS_SORT` | `sort/main.nf` | `tuple val(meta), path(sam)` | `bam` |
 
-All processes take a `meta` map (`[ id:'test' ]`) and accept extra arguments via `task.ext.args`.
+## Publishing
+
+These processes do **not** publish their own outputs. Publishing is the
+consuming pipeline's job, via a workflow `output {}` block. This keeps the
+module reusable across pipelines that want different result layouts.
+
+## Tool arguments
+
+Flags are passed through `task.ext.args` (and `args2`/`args3` where a process
+runs more than one command) rather than read from pipeline `params`, so the
+module never depends on a particular pipeline's parameter names:
+
+```groovy
+process {
+    withName: SAMTOOLS_FAIDX {
+        ext.args = '--some-flag'
+    }
+}
+```
 
 ## Use as submodule
+
+Pin to a release tag rather than a branch, so pipeline runs stay reproducible:
+
 ```bash
-git submodule add https://github.com/CristiSoitu/nf-mod-samtools.git modules/samtools
+git submodule add https://github.com/EIT-GBI/nf-mod-samtools.git modules/samtools
+git -C modules/samtools checkout v1.0.0
 ```
 
 Then in your pipeline:
+
 ```groovy
-include { SAMTOOLS_SORT     } from './modules/samtools/sort/main.nf'
-include { SAMTOOLS_INDEX    } from './modules/samtools/index/main.nf'
-include { SAMTOOLS_FAIDX    } from './modules/samtools/faidx/main.nf'
+include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
+include { SAMTOOLS_FASTQ } from './modules/samtools/fastq/main.nf'
+include { does } from './modules/samtools/filter/main.nf'
 include { SAMTOOLS_FLAGSTAT } from './modules/samtools/flagstat/main.nf'
+include { SAMTOOLS_INDEX } from './modules/samtools/index/main.nf'
+include { SAMTOOLS_SORT } from './modules/samtools/sort/main.nf'
 ```
+
+## Requirements
+
+Nextflow 26.04.4 or newer.
+
+## Releasing
+
+Merging a PR to `main` with exactly one `bump:patch`, `bump:minor` or
+`bump:major` label bumps `manifest.version` in `nextflow.config`, tags the
+release and publishes the container image.

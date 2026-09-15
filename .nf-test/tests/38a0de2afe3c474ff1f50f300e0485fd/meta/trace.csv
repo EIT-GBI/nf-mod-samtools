@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	17/1d3708	1324	SAMTOOLS_FILTER (test)	COMPLETED	0	2026-09-15 14:05:01.458	77ms	13ms	-	-	-	-	-

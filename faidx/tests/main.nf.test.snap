@@ -1,0 +1,35 @@
+{
+    "SAMTOOLS_FAIDX - stub - wiring and output names": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genome.fasta.fai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    
+                ],
+                "fai": [
+                    [
+                        {
+                            "id": "test"
+                        },
+                        "genome.fasta.fai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "gzi": [
+                    
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-15T14:04:57.729931"
+    }
+}
