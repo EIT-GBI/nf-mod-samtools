@@ -1,5 +1,0 @@
-[PIPELINE] nf-mod-samtools 0.0.0 | profile=standard
-[WORKDIR] /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work
-[PROCESS 5c/70bf30] SAMTOOLS_FAIDX (test)
-
-[SUCCESS] completed=1 failed=0 cached=0
