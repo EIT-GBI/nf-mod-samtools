@@ -1,9 +1,6 @@
 process SAMTOOLS_FLAGSTAT {
     tag "${meta.id}"
 
-    publishDir "${params.outdir}/qc/flagstat", mode: 'link'
-
-
     input:
     tuple val(meta), path(bam)
 

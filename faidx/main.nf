@@ -1,8 +1,6 @@
 process SAMTOOLS_FAIDX {
     tag "${meta.id}"
 
-    publishDir "${params.outdir}/faidx", mode: 'link'
-
     input:
     tuple val(meta), path(fasta)
 

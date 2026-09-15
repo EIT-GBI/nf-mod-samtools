@@ -1,6 +1,5 @@
 // This converts reads from unaligned BAM to FASTQ format. 
 
-
 process SAMTOOLS_FASTQ {
     tag "${meta.id}"
 
