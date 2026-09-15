@@ -1,2 +1,2 @@
 task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-1	fa/757140	345	SAMTOOLS_FAIDX (test)	COMPLETED	0	2026-09-15 14:04:57.141	66ms	13ms	-	-	-	-	-
+1	5c/70bf30	13819	SAMTOOLS_FAIDX (test)	COMPLETED	0	2026-09-15 14:21:26.960	75ms	14ms	-	-	-	-	-

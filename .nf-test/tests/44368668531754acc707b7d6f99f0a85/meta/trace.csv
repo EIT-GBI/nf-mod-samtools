@@ -1,2 +1,2 @@
 task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-1	31/629b88	561	SAMTOOLS_FASTQ (test)	COMPLETED	0	2026-09-15 14:04:59.274	78ms	14ms	-	-	-	-	-
+1	1f/cd2c7d	13893	SAMTOOLS_FASTQ (test)	COMPLETED	0	2026-09-15 14:21:29.198	69ms	14ms	-	-	-	-	-

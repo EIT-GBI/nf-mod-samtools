@@ -1,5 +1,5 @@
 [PIPELINE] nf-mod-samtools 0.0.0 | profile=standard
 [WORKDIR] /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/fd8a4570a2a2aa8fce4826cad4ac5816/work
-[PROCESS 09/4f78c1] SAMTOOLS_FLAGSTAT (test)
+[PROCESS a6/f997ea] SAMTOOLS_FLAGSTAT (test)
 
 [SUCCESS] completed=1 failed=0 cached=0

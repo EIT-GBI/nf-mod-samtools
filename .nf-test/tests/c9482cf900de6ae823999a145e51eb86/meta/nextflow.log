@@ -1,74 +1,74 @@
-Sept-15 14:04:56.210 [main] DEBUG nextflow.cli.Launcher - $> nextflow -quiet -log /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/nextflow.log run /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test-c9482cf900de6ae823999a145e51eb86.nf -c /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config -c /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config -params-file /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/params.json -ansi-log false -with-trace /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/trace.csv -w /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work -stub-run
-Sept-15 14:04:56.246 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/pauline.fourgoux/.nextflow/plugins; core-plugins: nf-amazon@3.9.2,nf-azure@1.22.6,nf-cloudcache@0.6.0,nf-codecommit@0.5.3,nf-console@1.3.0,nf-google@1.27.3,nf-k8s@1.5.4,nf-seqera@0.21.1,nf-tower@1.28.2,nf-wave@1.21.0
-Sept-15 14:04:56.256 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
-Sept-15 14:04:56.257 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
-Sept-15 14:04:56.258 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.14.1 in 'deployment' mode
-Sept-15 14:04:56.264 [main] DEBUG nextflow.util.RetryConfig - Missing nextflow session - using default retry config
-Sept-15 14:04:56.321 [main] DEBUG nextflow.plugin.PluginUpdater - Using plugin repository: HttpPluginRepository [registry]; url=https://registry.nextflow.io/api
-Sept-15 14:04:56.324 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
-Sept-15 14:04:56.341 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
-Sept-15 14:04:56.342 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
-Sept-15 14:04:56.343 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
-Sept-15 14:04:56.343 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
-Sept-15 14:04:56.343 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
-Sept-15 14:04:56.343 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
-Sept-15 14:04:56.354 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
-Sept-15 14:04:56.514 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
-Sept-15 14:04:56.518 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
-Sept-15 14:04:56.538 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
-Sept-15 14:04:56.538 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
-Sept-15 14:04:56.544 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /Users/pauline.fourgoux/.nextflow/secrets/store.json
-Sept-15 14:04:56.545 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@75023c53] - activable => nextflow.secret.LocalSecretsProvider@75023c53
-Sept-15 14:04:56.574 [main] DEBUG nextflow.Session - Session UUID: 3320ae0a-e09d-4fd8-b304-0e2db6183b43
-Sept-15 14:04:56.574 [main] DEBUG nextflow.Session - Run name: silly_goldstine
-Sept-15 14:04:56.574 [main] DEBUG nextflow.Session - Executor pool size: 14
-Sept-15 14:04:56.577 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
-Sept-15 14:04:56.579 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=42; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
-Sept-15 14:04:56.591 [main] DEBUG nextflow.cli.CmdRun - 
+Sept-15 14:21:25.939 [main] DEBUG nextflow.cli.Launcher - $> nextflow -quiet -log /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/nextflow.log run /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test-c9482cf900de6ae823999a145e51eb86.nf -c /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config -c /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config -params-file /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/params.json -ansi-log false -with-trace /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/trace.csv -w /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work -stub-run
+Sept-15 14:21:25.979 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/Users/pauline.fourgoux/.nextflow/plugins; core-plugins: nf-amazon@3.9.2,nf-azure@1.22.6,nf-cloudcache@0.6.0,nf-codecommit@0.5.3,nf-console@1.3.0,nf-google@1.27.3,nf-k8s@1.5.4,nf-seqera@0.21.1,nf-tower@1.28.2,nf-wave@1.21.0
+Sept-15 14:21:25.989 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Sept-15 14:21:25.989 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Sept-15 14:21:25.991 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.14.1 in 'deployment' mode
+Sept-15 14:21:26.002 [main] DEBUG nextflow.util.RetryConfig - Missing nextflow session - using default retry config
+Sept-15 14:21:26.064 [main] DEBUG nextflow.plugin.PluginUpdater - Using plugin repository: HttpPluginRepository [registry]; url=https://registry.nextflow.io/api
+Sept-15 14:21:26.067 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Sept-15 14:21:26.083 [main] DEBUG nextflow.config.ConfigBuilder - Found config base: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
+Sept-15 14:21:26.085 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
+Sept-15 14:21:26.085 [main] DEBUG nextflow.config.ConfigBuilder - User config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
+Sept-15 14:21:26.086 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
+Sept-15 14:21:26.086 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
+Sept-15 14:21:26.086 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/nextflow.config
+Sept-15 14:21:26.098 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Sept-15 14:21:26.263 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Sept-15 14:21:26.267 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Sept-15 14:21:26.287 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Sept-15 14:21:26.287 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Sept-15 14:21:26.294 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /Users/pauline.fourgoux/.nextflow/secrets/store.json
+Sept-15 14:21:26.295 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@75023c53] - activable => nextflow.secret.LocalSecretsProvider@75023c53
+Sept-15 14:21:26.328 [main] DEBUG nextflow.Session - Session UUID: 5f70c40c-d597-4a57-b1b2-f6558d4a95ff
+Sept-15 14:21:26.328 [main] DEBUG nextflow.Session - Run name: stoic_wegener
+Sept-15 14:21:26.329 [main] DEBUG nextflow.Session - Executor pool size: 14
+Sept-15 14:21:26.332 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Sept-15 14:21:26.336 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=42; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Sept-15 14:21:26.351 [main] DEBUG nextflow.cli.CmdRun - 
   Version: 26.04.6 build 12646
   Created: 09-07-2026 18:49 UTC (19:49 BST)
   System: Mac OS X 26.6.2
   Runtime: Groovy 4.0.31 on OpenJDK 64-Bit Server VM 17.0.10+7
   Encoding: UTF-8 (UTF-8)
-  Process: 302@EIT-CPQMWPHKJJ [10.6.61.179]
-  CPUs: 14 - Mem: 36 GB (1.1 GB) - Swap: 0 (0)
-Sept-15 14:04:56.599 [main] DEBUG nextflow.Session - Work-dir: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work [Mac OS X]
-Sept-15 14:04:56.599 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/bin
-Sept-15 14:04:56.603 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
-Sept-15 14:04:56.607 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
-Sept-15 14:04:56.608 [main] DEBUG nextflow.Session - Observer factory (v2): DefaultObserverFactory
-Sept-15 14:04:56.624 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
-Sept-15 14:04:56.628 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 15; maxThreads: 1000
-Sept-15 14:04:56.653 [main] DEBUG nextflow.Session - Session start
-Sept-15 14:04:56.656 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/trace.csv
-Sept-15 14:04:56.802 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
-Sept-15 14:04:56.981 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
-Sept-15 14:04:56.981 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
-Sept-15 14:04:56.985 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
-Sept-15 14:04:56.987 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=14; memory=36 GB; capacity=14; pollInterval=100ms; dumpInterval=5m
-Sept-15 14:04:56.988 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
-Sept-15 14:04:56.996 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'SAMTOOLS_FAIDX': maxForks=0; fair=false; array=0
-Sept-15 14:04:57.033 [main] DEBUG nextflow.Session - Process names: SAMTOOLS_FAIDX
-Sept-15 14:04:57.035 [main] DEBUG nextflow.Session - Igniting dataflow network (1)
-Sept-15 14:04:57.035 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > SAMTOOLS_FAIDX
-Sept-15 14:04:57.036 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Process: 13785@EIT-CPQMWPHKJJ [10.6.61.179]
+  CPUs: 14 - Mem: 36 GB (443.8 MB) - Swap: 2 GB (367.5 MB)
+Sept-15 14:21:26.358 [main] DEBUG nextflow.Session - Work-dir: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work [Mac OS X]
+Sept-15 14:21:26.359 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/bin
+Sept-15 14:21:26.363 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Sept-15 14:21:26.367 [main] DEBUG nextflow.Session - Observer factory (v2): LinObserverFactory
+Sept-15 14:21:26.368 [main] DEBUG nextflow.Session - Observer factory (v2): DefaultObserverFactory
+Sept-15 14:21:26.386 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Sept-15 14:21:26.390 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 15; maxThreads: 1000
+Sept-15 14:21:26.414 [main] DEBUG nextflow.Session - Session start
+Sept-15 14:21:26.416 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/meta/trace.csv
+Sept-15 14:21:26.560 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Sept-15 14:21:26.763 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+Sept-15 14:21:26.763 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+Sept-15 14:21:26.768 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+Sept-15 14:21:26.770 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=14; memory=36 GB; capacity=14; pollInterval=100ms; dumpInterval=5m
+Sept-15 14:21:26.771 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+Sept-15 14:21:26.782 [main] DEBUG nextflow.processor.TaskProcessor - Creating process 'SAMTOOLS_FAIDX': maxForks=0; fair=false; array=0
+Sept-15 14:21:26.820 [main] DEBUG nextflow.Session - Process names: SAMTOOLS_FAIDX
+Sept-15 14:21:26.822 [main] DEBUG nextflow.Session - Igniting dataflow network (1)
+Sept-15 14:21:26.822 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > SAMTOOLS_FAIDX
+Sept-15 14:21:26.823 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
   _nf_script_e536f94ee0d6a3c7: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/faidx/main.nf
   _nf_script_8d86f3f302c8191f: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test-c9482cf900de6ae823999a145e51eb86.nf
-Sept-15 14:04:57.036 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
-Sept-15 14:04:57.036 [main] DEBUG nextflow.Session - Session await
-Sept-15 14:04:57.068 [FileTransfer-1] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta to work dir: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work/stage-3320ae0a-e09d-4fd8-b304-0e2db6183b43/21/82153dfdc6c2a78e337b6b99e3d730/genome.fasta
-Sept-15 14:04:57.135 [Task submitter] WARN  n.executor.BashWrapperBuilder - Task runtime metrics are not reported when using macOS without a container engine
-Sept-15 14:04:57.140 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
-Sept-15 14:04:57.141 [Task submitter] INFO  nextflow.Session - [fa/757140] Submitted process > SAMTOOLS_FAIDX (test)
-Sept-15 14:04:57.208 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: SAMTOOLS_FAIDX (test); status: COMPLETED; exit: 0; error: -; workDir: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work/fa/7571405d138b8c334638cb3a45631e]
-Sept-15 14:04:57.209 [Task monitor] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'TaskFinalizer' minSize=10; maxSize=42; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
-Sept-15 14:04:57.249 [TaskFinalizer-1] DEBUG nextflow.processor.TaskProcessor - Process SAMTOOLS_FAIDX > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
-Sept-15 14:04:57.252 [main] DEBUG nextflow.Session - Session await > all processes finished
-Sept-15 14:04:57.310 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
-Sept-15 14:04:57.311 [main] DEBUG nextflow.Session - Session await > all barriers passed
-Sept-15 14:04:57.314 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'TaskFinalizer' shutdown completed (hard=false)
-Sept-15 14:04:57.320 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=1; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=13ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
-Sept-15 14:04:57.320 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
-Sept-15 14:04:57.323 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
-Sept-15 14:04:57.331 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
-Sept-15 14:04:57.331 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye
+Sept-15 14:21:26.823 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Sept-15 14:21:26.823 [main] DEBUG nextflow.Session - Session await
+Sept-15 14:21:26.862 [FileTransfer-1] DEBUG nextflow.file.FilePorter - Copying foreign file https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta to work dir: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work/stage-5f70c40c-d597-4a57-b1b2-f6558d4a95ff/30/11fc97e963044d2e6c2530e49728ed/genome.fasta
+Sept-15 14:21:26.954 [Task submitter] WARN  n.executor.BashWrapperBuilder - Task runtime metrics are not reported when using macOS without a container engine
+Sept-15 14:21:26.959 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+Sept-15 14:21:26.960 [Task submitter] INFO  nextflow.Session - [5c/70bf30] Submitted process > SAMTOOLS_FAIDX (test)
+Sept-15 14:21:27.036 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: SAMTOOLS_FAIDX (test); status: COMPLETED; exit: 0; error: -; workDir: /Users/pauline.fourgoux/Documents/Code/nf-dnaseq/modules/samtools/.nf-test/tests/c9482cf900de6ae823999a145e51eb86/work/5c/70bf302baeeee29ac51ec4d43d68d7]
+Sept-15 14:21:27.036 [Task monitor] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'TaskFinalizer' minSize=10; maxSize=42; workQueue=LinkedBlockingQueue[-1]; allowCoreThreadTimeout=false
+Sept-15 14:21:27.080 [TaskFinalizer-1] DEBUG nextflow.processor.TaskProcessor - Process SAMTOOLS_FAIDX > Skipping output binding because one or more optional files are missing: fileoutparam<1:1>
+Sept-15 14:21:27.083 [main] DEBUG nextflow.Session - Session await > all processes finished
+Sept-15 14:21:27.145 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+Sept-15 14:21:27.145 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Sept-15 14:21:27.146 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'TaskFinalizer' shutdown completed (hard=false)
+Sept-15 14:21:27.151 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=1; failedCount=0; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=14ms; failedDuration=0ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
+Sept-15 14:21:27.152 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
+Sept-15 14:21:27.154 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Sept-15 14:21:27.161 [main] DEBUG nextflow.util.ThreadPoolManager - Thread pool 'FileTransfer' shutdown completed (hard=false)
+Sept-15 14:21:27.162 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

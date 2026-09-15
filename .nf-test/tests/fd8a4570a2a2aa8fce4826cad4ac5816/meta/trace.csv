@@ -1,2 +1,2 @@
 task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
-1	09/4f78c1	1404	SAMTOOLS_FLAGSTAT (test)	COMPLETED	0	2026-09-15 14:05:03.626	74ms	13ms	-	-	-	-	-
+1	a6/f997ea	14049	SAMTOOLS_FLAGSTAT (test)	COMPLETED	0	2026-09-15 14:21:34.093	69ms	15ms	-	-	-	-	-
