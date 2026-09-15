@@ -83,6 +83,7 @@ RUN apt-get update \
         libdeflate0 \
         liblzma5 \
         libncursesw6 \
+        procps \
         libssl3 \
         zlib1g \
     && apt-get clean \
@@ -90,5 +91,7 @@ RUN apt-get update \
 
 COPY --from=builder /opt/samtools /opt/samtools
 
-ENTRYPOINT ["samtools"]
-CMD ["--help"]
+# No ENTRYPOINT: Nextflow invokes the container as `/bin/bash -c ...`, and an
+# ENTRYPOINT of ["samtools"] turns that into `samtools /bin/bash`, which fails
+# with: [main] unrecognized command '/bin/bash'
+CMD ["samtools", "--help"]
