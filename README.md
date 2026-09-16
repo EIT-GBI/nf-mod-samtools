@@ -2,7 +2,7 @@
 
 Nextflow module for SAMtools (BAM/CRAM manipulation). Used as a git submodule by pipelines.
 
-Image: `ghcr.io/eit-gbi/nf-mod-samtools`
+Image: `ghcr.io/eit-gbi/nf-mod-samtools:v0.0.0`
 
 ## Processes
 
@@ -44,7 +44,7 @@ Pin to a release tag rather than a branch, so pipeline runs stay reproducible:
 
 ```bash
 git submodule add https://github.com/EIT-GBI/nf-mod-samtools.git modules/samtools
-git -C modules/samtools checkout v1.0.0
+git -C modules/samtools checkout v0.0.0
 ```
 
 Then include the module's container config from your `nextflow.config`. Nextflow
