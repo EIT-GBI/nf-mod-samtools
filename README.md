@@ -47,7 +47,19 @@ git submodule add https://github.com/EIT-GBI/nf-mod-samtools.git modules/samtool
 git -C modules/samtools checkout v1.0.0
 ```
 
-Then in your pipeline:
+Then include the module's container config from your `nextflow.config`. Nextflow
+does not read a submodule's config on its own, so without this line the
+processes have no image:
+
+```groovy
+includeConfig 'modules/samtools/conf/module.config'
+```
+
+`conf/module.config` pins the image to the version built from this same commit,
+and carries no `manifest {}` block, so it will not overwrite your pipeline's
+own manifest. Override it in your pipeline with a `withName` selector if needed.
+
+And include the processes:
 
 ```groovy
 include { SAMTOOLS_FAIDX } from './modules/samtools/faidx/main.nf'
