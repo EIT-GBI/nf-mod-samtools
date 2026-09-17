@@ -4,6 +4,9 @@ nextflow_process {
     script "../main.nf"
     process "SAMTOOLS_SORT"
 
+    // the unsorted BAM, so sorting has something to do
+    def TEST_BAM = 'file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.bam", checkIfExists: true)'
+
     test("SAMTOOLS_SORT - stub - wiring and output names") {
 
         options "-stub-run"
@@ -11,7 +14,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = [[id:'test'], file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)]
+                input[0] = [[id:'test'], ${TEST_BAM}]
                 """
             }
         }
@@ -19,6 +22,36 @@ nextflow_process {
         then {
             assert process.success
             assert process.out.bam
+        }
+    }
+
+    test("SAMTOOLS_SORT - sorts an unsorted BAM by coordinate") {
+
+        config "../../tests.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            // nft-bam streams the file, so every accessor needs its own reader
+            def bam_path = process.out.bam[0][1]
+            def stats    = bam(bam_path).getStatistics(include: ["readCount", "sorted"])
+            def hd       = bam(bam_path).getHeader().find { it.startsWith('@HD') }
+
+            assert stats.readCount == 200
+            assert stats.sorted
+            assert hd.contains('SO:coordinate')
+
+            // read-level checksum rather than the file checksum: samtools writes
+            // its command line, including -@ task.cpus, into an @PG header line
+            assert snapshot(bam(bam_path).getReadsMD5(), stats).match()
         }
     }
 }

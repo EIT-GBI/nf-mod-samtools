@@ -113,20 +113,22 @@ Nextflow 26.04.4 or newer.
 
 ## Tests
 
-`nf-test test`. Most processes are covered by stub tests, which check wiring and
-output names without running the tool.
+`nf-test test`. Every process has a stub test covering wiring and output names,
+and tests that run samtools for real against
+`ghcr.io/eit-gbi/nf-mod-samtools:latest` and snapshot what comes out. The real
+tests need Docker and the `nft-bam` plugin declared in `nf-test.config`, which
+nf-test fetches on first run. They share `tests.config` at the repo root.
 
-`SAMTOOLS_FILTER` additionally has tests that run samtools for real, against
-`ghcr.io/eit-gbi/nf-mod-samtools:latest`, and snapshot what comes out. These
-need Docker, and the `nft-bam` plugin declared in `nf-test.config`, which
-nf-test fetches on first run.
+Processes emitting a BAM (`SAMTOOLS_FILTER`, `SAMTOOLS_SORT`) snapshot
+read-level checksums rather than the file checksum: samtools records its own
+command line, including `-@ <cpus>`, in an `@PG` header line, so the file
+checksum changes whenever the config does. Processes emitting text (`FAIDX`,
+`FLAGSTAT`) or a deterministic file (`FASTQ`, whose gzip records no mtime when
+compressing stdin) are snapshotted directly.
 
-They snapshot read-level checksums and read counts rather than the BAM file
-checksum: samtools records its own command line, including `-@ <cpus>`, in an
-`@PG` header line, so the file checksum changes whenever the config does. They
-also assert the filter expression itself, recovered from that `@PG` record,
-which pins the comparison operators - read counts alone cannot tell `>=` from
-`>` unless the test data happens to sit on the boundary.
+`SAMTOOLS_FILTER` also asserts the filter expression itself, recovered from that
+`@PG` record, which pins the comparison operators - read counts alone cannot
+tell `>=` from `>` unless the test data happens to sit on the boundary.
 
 Note that a stub test cannot cover any of this: `-stub-run` replaces the whole
 script block, so neither the expression nor the `ext.args` guard is reached.

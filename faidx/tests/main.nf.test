@@ -4,6 +4,8 @@ nextflow_process {
     script "../main.nf"
     process "SAMTOOLS_FAIDX"
 
+    def TEST_FA = 'file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta", checkIfExists: true)'
+
     test("SAMTOOLS_FAIDX - stub - wiring and output names") {
 
         options "-stub-run"
@@ -11,7 +13,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = [[id:'test'], file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/genome/genome.fasta", checkIfExists: true)]
+                input[0] = [[id:'test'], ${TEST_FA}]
                 """
             }
         }
@@ -19,8 +21,32 @@ nextflow_process {
         then {
             assert process.success
             assert process.out.fai
-            // gzi is optional: only assert the channel exists
-            assert process.out.gzi != null
+        }
+    }
+
+    test("SAMTOOLS_FAIDX - indexes the reference") {
+
+        config "../../tests.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_FA}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            // a .fai is plain text: name, length, offset, linebases, linewidth
+            def fai = path(process.out.fai[0][1]).readLines()
+
+            assert fai.size() == 1
+            assert fai[0].split('\t')[0] == 'MT192765.1'
+            assert fai[0].split('\t')[1] == '29829'
+            // no timestamps, so the file is safe to snapshot whole
+            assert snapshot(process.out.fai).match()
         }
     }
 }

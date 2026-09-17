@@ -4,6 +4,8 @@ nextflow_process {
     script "../main.nf"
     process "SAMTOOLS_INDEX"
 
+    def TEST_BAM = 'file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)'
+
     test("SAMTOOLS_INDEX - stub - wiring and output names") {
 
         options "-stub-run"
@@ -11,7 +13,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = [[id:'test'], file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)]
+                input[0] = [[id:'test'], ${TEST_BAM}]
                 """
             }
         }
@@ -19,6 +21,32 @@ nextflow_process {
         then {
             assert process.success
             assert process.out.bam
+        }
+    }
+
+    test("SAMTOOLS_INDEX - emits the BAM alongside a usable index") {
+
+        config "../../tests.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            def bam_out = process.out.bam[0][1]
+            def bai_out = process.out.bam[0][2]
+
+            assert file(bai_out).name == 'test.paired_end.sorted.bam.bai'
+            // the BAM passes through untouched, so the index is the only new
+            // thing here; a .bai carries no timestamp
+            assert bam(bam_out).getStatistics(include: ["readCount"]).readCount == 200
+            assert snapshot(process.out.bam).match()
         }
     }
 }

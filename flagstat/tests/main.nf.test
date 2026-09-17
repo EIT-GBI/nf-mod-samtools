@@ -4,6 +4,8 @@ nextflow_process {
     script "../main.nf"
     process "SAMTOOLS_FLAGSTAT"
 
+    def TEST_BAM = 'file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)'
+
     test("SAMTOOLS_FLAGSTAT - stub - wiring and output names") {
 
         options "-stub-run"
@@ -11,7 +13,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = [[id:'test'], file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)]
+                input[0] = [[id:'test'], ${TEST_BAM}]
                 """
             }
         }
@@ -19,6 +21,29 @@ nextflow_process {
         then {
             assert process.success
             assert process.out.flagstat
+        }
+    }
+
+    test("SAMTOOLS_FLAGSTAT - counts the records in the BAM") {
+
+        config "../../tests.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            // plain text, no timestamps
+            def lines = path(process.out.flagstat[0][1]).readLines()
+
+            assert lines[0].startsWith('200 + 0 in total')
+            assert snapshot(lines).match()
         }
     }
 }

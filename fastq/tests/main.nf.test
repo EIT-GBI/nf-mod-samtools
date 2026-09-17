@@ -4,6 +4,9 @@ nextflow_process {
     script "../main.nf"
     process "SAMTOOLS_FASTQ"
 
+    // the module is for converting unaligned BAM back to FASTQ
+    def TEST_BAM = 'file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.unaligned.bam", checkIfExists: true)'
+
     test("SAMTOOLS_FASTQ - stub - wiring and output names") {
 
         options "-stub-run"
@@ -11,7 +14,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = [[id:'test'], file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)]
+                input[0] = [[id:'test'], ${TEST_BAM}]
                 """
             }
         }
@@ -19,6 +22,32 @@ nextflow_process {
         then {
             assert process.success
             assert process.out.reads
+        }
+    }
+
+    test("SAMTOOLS_FASTQ - converts an unaligned BAM to FASTQ") {
+
+        config "../../tests.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            def lines = path(process.out.reads[0][1]).linesGzip
+
+            // four lines per record, and the FASTQ structure should hold
+            assert lines.size() % 4 == 0
+            assert lines[0].startsWith('@')
+            assert lines[2] == '+'
+            // gzip compressing stdin records no mtime, so the file is stable
+            assert snapshot(process.out.reads).match()
         }
     }
 }
