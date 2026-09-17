@@ -1,0 +1,58 @@
+{
+    "SAMTOOLS_FILTER - min_read_length only - drops the short reads": {
+        "content": [
+            "length(seq) >= 150",
+            "5add2e49e7b81de412ab81ae4c0e35a8",
+            {
+                "readCount": 111
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-17T11:31:42.301983"
+    },
+    "SAMTOOLS_FILTER - no thresholds set - passes every read through": {
+        "content": [
+            null,
+            "894549ee3ced6b5ca2eed2563a985217",
+            {
+                "readCount": 200
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-17T11:31:39.402796"
+    },
+    "SAMTOOLS_FILTER - both thresholds - applies them together": {
+        "content": [
+            "avg(qual) >= 30 && length(seq) >= 150",
+            "6ef031733a434a2d55b3ca211aea79b8",
+            {
+                "readCount": 103
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-17T11:31:47.997358"
+    },
+    "SAMTOOLS_FILTER - min_read_quality only - drops the low quality reads": {
+        "content": [
+            "avg(qual) >= 30",
+            "83e51f2b2ec0f3dfb562a850366b188f",
+            {
+                "readCount": 169
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-17T11:31:45.160521"
+    }
+}

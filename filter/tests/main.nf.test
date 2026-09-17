@@ -4,6 +4,9 @@ nextflow_process {
     script "../main.nf"
     process "SAMTOOLS_FILTER"
 
+    // nf-core sarscov2 test set: 200 reads, 111 of them >= 150bp
+    def TEST_BAM = 'file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)'
+
     test("SAMTOOLS_FILTER - stub - wiring and output names") {
 
         options "-stub-run"
@@ -11,7 +14,7 @@ nextflow_process {
         when {
             process {
                 """
-                input[0] = [[id:'test'], file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)]
+                input[0] = [[id:'test'], ${TEST_BAM}]
                 """
             }
         }
@@ -19,6 +22,159 @@ nextflow_process {
         then {
             assert process.success
             assert process.out.filtered
+        }
+    }
+
+    test("SAMTOOLS_FILTER - no thresholds set - passes every read through") {
+
+        config "./nextflow.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            // nft-bam streams the file, so every accessor needs its own reader
+            def bam_path = process.out.filtered[0][1]
+            def stats    = bam(bam_path).getStatistics(include: ["readCount"])
+            def pg       = bam(bam_path).getHeader().findAll { it.startsWith('@PG') }.last()
+            def matcher  = (pg =~ / -e (.+?) -b /)
+            def expr     = matcher.find() ? matcher.group(1) : null
+
+            // no params.filter means no -e at all, and nothing dropped
+            assert expr == null
+            assert stats.readCount == 200
+            assert snapshot(expr, bam(bam_path).getReadsMD5(), stats).match()
+        }
+    }
+
+    test("SAMTOOLS_FILTER - min_read_length only - drops the short reads") {
+
+        config "./nextflow.config"
+
+        when {
+            params {
+                filter {
+                    min_read_length = 150
+                }
+            }
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            def bam_path = process.out.filtered[0][1]
+            def stats    = bam(bam_path).getStatistics(include: ["readCount"])
+            def pg       = bam(bam_path).getHeader().findAll { it.startsWith('@PG') }.last()
+            def matcher  = (pg =~ / -e (.+?) -b /)
+            def expr     = matcher.find() ? matcher.group(1) : null
+
+            // 150 is a boundary: 62 reads are exactly 150bp, so a '>' instead of
+            // '>=' here would drop to 49 and fail this assertion.
+            assert expr == 'length(seq) >= 150'
+            assert stats.readCount == 111
+            assert snapshot(expr, bam(bam_path).getReadsMD5(), stats).match()
+        }
+    }
+
+    test("SAMTOOLS_FILTER - min_read_quality only - drops the low quality reads") {
+
+        config "./nextflow.config"
+
+        when {
+            params {
+                filter {
+                    min_read_quality = 30
+                }
+            }
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            def bam_path = process.out.filtered[0][1]
+            def stats    = bam(bam_path).getStatistics(include: ["readCount"])
+            def pg       = bam(bam_path).getHeader().findAll { it.startsWith('@PG') }.last()
+            def matcher  = (pg =~ / -e (.+?) -b /)
+            def expr     = matcher.find() ? matcher.group(1) : null
+
+            assert expr == 'avg(qual) >= 30'
+            assert stats.readCount == 169
+            assert snapshot(expr, bam(bam_path).getReadsMD5(), stats).match()
+        }
+    }
+
+    test("SAMTOOLS_FILTER - both thresholds - applies them together") {
+
+        config "./nextflow.config"
+
+        when {
+            params {
+                filter {
+                    min_read_quality = 30
+                    min_read_length  = 150
+                }
+            }
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            def bam_path = process.out.filtered[0][1]
+            def stats    = bam(bam_path).getStatistics(include: ["readCount"])
+            def pg       = bam(bam_path).getHeader().findAll { it.startsWith('@PG') }.last()
+            def matcher  = (pg =~ / -e (.+?) -b /)
+            def expr     = matcher.find() ? matcher.group(1) : null
+
+            // both terms, joined in a fixed order; stricter than either alone
+            assert expr == 'avg(qual) >= 30 && length(seq) >= 150'
+            assert stats.readCount == 103
+            assert snapshot(expr, bam(bam_path).getReadsMD5(), stats).match()
+        }
+    }
+
+    test("SAMTOOLS_FILTER - params.filter together with an -e in ext.args is refused") {
+
+        config "./collision.config"
+
+        when {
+            params {
+                filter {
+                    min_read_quality = 30
+                    min_read_length  = 150
+                }
+            }
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.failed
+            assert process.errorReport.contains("silently honour only the latter")
         }
     }
 }
