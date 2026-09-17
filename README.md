@@ -26,8 +26,9 @@ module reusable across pipelines that want different result layouts.
 
 ## Tool arguments
 
-Plain tool flags are passed through `task.ext.args` (and `args2`/`args3` where a
-process runs more than one command):
+Flags are passed through `task.ext.args` (and `args2`/`args3` where a process
+runs more than one command) rather than read from pipeline `params`, so the
+module never depends on a particular pipeline's parameter names:
 
 ```groovy
 process {
@@ -37,43 +38,16 @@ process {
 }
 ```
 
-## Module-owned parameters
-
-Where a setting is a property of what the module *does* rather than of a
-particular pipeline, the module owns it: it declares the `params` names and
-builds the tool invocation from them, so every consuming pipeline configures it
-the same way instead of each one re-deriving the same expression.
-
-`SAMTOOLS_FILTER` is the first process to work this way:
-
-| Param | Meaning |
-| --- | --- |
-| `params.filter.min_read_quality` | minimum mean base quality (`avg(qual)`) |
-| `params.filter.min_read_length` | minimum read length (`length(seq)`) |
-
-The module turns these into the samtools filter expression:
+`SAMTOOLS_FILTER` takes its samtools filter expression this way. The single
+quotes are load-bearing: they keep `&&` and `>=` away from the shell.
 
 ```groovy
-params {
-    filter {
-        min_read_quality = 10
-        min_read_length  = 500
+process {
+    withName: SAMTOOLS_FILTER {
+        ext.args = "-e 'avg(qual) >= 30 && length(seq) >= 150'"
     }
 }
-// -> samtools view -e 'avg(qual) >= 10 && length(seq) >= 500'
 ```
-
-Either threshold may be left unset, in which case its term is dropped. With
-neither set no `-e` is passed and no reads are filtered, so pipelines that do
-not set `params.filter` keep their previous behaviour.
-
-Do **not** declare defaults for these in `conf/module.config`. Pipelines
-normally `includeConfig` that file *after* their own `params` block, so a
-default there would silently overwrite whatever the pipeline had set.
-
-Setting `params.filter.*` and also passing `-e` through `ext.args` is an error:
-samtools honours only the last `-e`, which would silently drop one of the two
-filters, so the process fails instead.
 
 ## Use as submodule
 
@@ -117,7 +91,8 @@ Nextflow 26.04.4 or newer.
 and tests that run samtools for real against
 `ghcr.io/eit-gbi/nf-mod-samtools:latest` and snapshot what comes out. The real
 tests need Docker and the `nft-bam` plugin declared in `nf-test.config`, which
-nf-test fetches on first run. They share `tests.config` at the repo root.
+nf-test fetches on first run. They share `tests.config` at the repo root;
+`tests-filter.config` adds a filter expression through `ext.args`.
 
 Processes emitting a BAM (`SAMTOOLS_FILTER`, `SAMTOOLS_SORT`) snapshot
 read-level checksums rather than the file checksum: samtools records its own
@@ -127,11 +102,10 @@ checksum changes whenever the config does. Processes emitting text (`FAIDX`,
 compressing stdin) are snapshotted directly.
 
 `SAMTOOLS_FILTER` also asserts the filter expression itself, recovered from that
-`@PG` record, which pins the comparison operators - read counts alone cannot
-tell `>=` from `>` unless the test data happens to sit on the boundary.
+`@PG` record, which confirms the quoting in `ext.args` survives the shell.
 
 Note that a stub test cannot cover any of this: `-stub-run` replaces the whole
-script block, so neither the expression nor the `ext.args` guard is reached.
+script block, so the tool never runs.
 
 ## Releasing
 

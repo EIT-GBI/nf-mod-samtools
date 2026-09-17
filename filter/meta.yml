@@ -11,18 +11,6 @@ tools:
       description: |
         samtools
 
-params:
-  - filter.min_read_quality:
-      type: integer
-      description: |
-        Minimum mean base quality; becomes `avg(qual) >= <value>` in the samtools
-        filter expression. Omit to drop this term.
-  - filter.min_read_length:
-      type: integer
-      description: |
-        Minimum read length; becomes `length(seq) >= <value>` in the samtools
-        filter expression. Omit to drop this term.
-
 input:
   - bam:
       type: map/file
