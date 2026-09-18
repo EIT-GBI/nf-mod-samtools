@@ -1,0 +1,28 @@
+name: samtools_sort
+description: |
+  Coordinate-sort an alignment file.
+keywords:
+  - sort
+  - bam
+  - samtools
+tools:
+  - samtools:
+      description: |
+        samtools
+
+input:
+  - sam:
+      type: map/file
+      description: |
+        Sample metadata map and an unsorted SAM/BAM.
+      pattern: "tuple val(meta), path(sam)"
+
+output:
+  - bam:
+      type: map/file
+      description: |
+        Coordinate-sorted BAM.
+      pattern: "tuple val(meta), path(*.sorted.bam)"
+
+authors:
+  - "EIT Generative Biology Institute"

@@ -1,0 +1,19 @@
+{
+    "SAMTOOLS_FAIDX - indexes the reference": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test"
+                    },
+                    "genome.fasta.fai:md5,9da2a56e2853dc8c0b86a9e7229c9fe5"
+                ]
+            ]
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-17T13:34:37.718443"
+    }
+}

@@ -1,0 +1,33 @@
+name: samtools_faidx
+description: |
+  Index a reference FASTA with samtools faidx.
+keywords:
+  - index
+  - fasta
+  - samtools
+tools:
+  - samtools:
+      description: |
+        samtools
+
+input:
+  - fasta:
+      type: map/file
+      description: |
+        Sample metadata map and a reference FASTA.
+      pattern: "tuple val(meta), path(fasta)"
+
+output:
+  - fai:
+      type: map/file
+      description: |
+        FASTA index.
+      pattern: "tuple val(meta), path(*.fai)"
+  - gzi:
+      type: map/file
+      description: |
+        BGZF index, emitted only for bgzipped input.
+      pattern: "tuple val(meta), path(*.gzi)"
+
+authors:
+  - "EIT Generative Biology Institute"

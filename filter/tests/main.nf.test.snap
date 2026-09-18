@@ -1,0 +1,30 @@
+{
+    "SAMTOOLS_FILTER - applies the filter expression given in ext.args": {
+        "content": [
+            "avg(qual) >= 30 && length(seq) >= 150",
+            "6ef031733a434a2d55b3ca211aea79b8",
+            {
+                "readCount": 103
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-17T14:31:21.409013"
+    },
+    "SAMTOOLS_FILTER - no ext.args - passes every read through": {
+        "content": [
+            null,
+            "894549ee3ced6b5ca2eed2563a985217",
+            {
+                "readCount": 200
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "26.04.6"
+        },
+        "timestamp": "2026-09-17T14:31:18.634586"
+    }
+}

@@ -1,0 +1,85 @@
+nextflow_process {
+
+    name "Test SAMTOOLS_FILTER"
+    script "../main.nf"
+    process "SAMTOOLS_FILTER"
+
+    // nf-core sarscov2 test set: 200 reads, 111 of them >= 150bp
+    def TEST_BAM = 'file("https://raw.githubusercontent.com/nf-core/test-datasets/modules/data/genomics/sarscov2/illumina/bam/test.paired_end.sorted.bam", checkIfExists: true)'
+
+    test("SAMTOOLS_FILTER - stub - wiring and output names") {
+
+        options "-stub-run"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assert process.out.filtered
+        }
+    }
+
+    test("SAMTOOLS_FILTER - no ext.args - passes every read through") {
+
+        config "../../tests.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            // nft-bam streams the file, so every accessor needs its own reader
+            def bam_path = process.out.filtered[0][1]
+            def stats    = bam(bam_path).getStatistics(include: ["readCount"])
+            def pg       = bam(bam_path).getHeader().findAll { it.startsWith('@PG') }.last()
+            def matcher  = (pg =~ / -e (.+?) -b /)
+            def expr     = matcher.find() ? matcher.group(1) : null
+
+            // nothing passed through ext.args means no -e, and nothing dropped
+            assert expr == null
+            assert stats.readCount == 200
+            assert snapshot(expr, bam(bam_path).getReadsMD5(), stats).match()
+        }
+    }
+
+    test("SAMTOOLS_FILTER - applies the filter expression given in ext.args") {
+
+        config "../../tests-filter.config"
+
+        when {
+            process {
+                """
+                input[0] = [[id:'test'], ${TEST_BAM}]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+
+            def bam_path = process.out.filtered[0][1]
+            def stats    = bam(bam_path).getStatistics(include: ["readCount"])
+            def pg       = bam(bam_path).getHeader().findAll { it.startsWith('@PG') }.last()
+            def matcher  = (pg =~ / -e (.+?) -b /)
+            def expr     = matcher.find() ? matcher.group(1) : null
+
+            // the expression reaches samtools intact: the single quotes in
+            // ext.args are what keep && and >= away from the shell
+            assert expr == 'avg(qual) >= 30 && length(seq) >= 150'
+            assert stats.readCount == 103
+            assert snapshot(expr, bam(bam_path).getReadsMD5(), stats).match()
+        }
+    }
+}
