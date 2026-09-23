@@ -11,6 +11,7 @@ Each subtool lives in its own folder (nf-core style), with a `main.nf`, a
 
 | Process | Path | Inputs | Emits |
 | --- | --- | --- | --- |
+| `SAMTOOLS_CONSENSUS` | `consensus/main.nf` | `tuple val(meta), path(bam)` | `fasta` |
 | `SAMTOOLS_FAIDX` | `faidx/main.nf` | `tuple val(meta), path(fasta)` | `fai`, `gzi` |
 | `SAMTOOLS_FASTQ` | `fastq/main.nf` | `tuple val(meta), path(bam)` | `reads` |
 | `SAMTOOLS_FILTER` | `filter/main.nf` | `tuple val(meta), path(bam)` | `filtered` |
@@ -47,6 +48,13 @@ process {
         ext.args = "-e 'avg(qual) >= 30 && length(seq) >= 150'"
     }
 }
+```
+
+`SAMTOOLS_CONSENSUS` needs a coordinate-sorted BAM. To run it on filtered
+reads, drop the index from `SAMTOOLS_FILTER`'s output:
+
+```groovy
+SAMTOOLS_CONSENSUS(SAMTOOLS_FILTER.out.filtered.map { meta, bam, bai -> [meta, bam] })
 ```
 
 ## Use as submodule
