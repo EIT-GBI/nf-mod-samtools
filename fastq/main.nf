@@ -12,6 +12,7 @@ process SAMTOOLS_FASTQ {
     script:
     def args = task.ext.args ?: ''
     """
+    set -euo pipefail
     samtools fastq \\
         ${args} \\
         -@ ${task.cpus} \\

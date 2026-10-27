@@ -50,4 +50,29 @@ nextflow_process {
             assert snapshot(process.out.reads).match()
         }
     }
+
+    test("SAMTOOLS_FASTQ - fails when samtools fails, even though gzip succeeds") {
+
+        config "../../tests.config"
+
+        when {
+            process {
+                // A SAM with a corrupt record after four good ones. samtools
+                // exits 1 on the parse error; gzip still writes a well-formed
+                // .fastq.gz of whatever reached it and exits 0. Without
+                // pipefail the task took gzip's status and passed with that
+                // file (EIT-GBI/nf-dnaseq#19).
+                """
+                input[0] = [[id:'test'], file("${moduleTestDir}/data/corrupt_record.sam", checkIfExists: true)]
+                """
+            }
+        }
+
+        then {
+            assert process.failed
+            // by name, so the test cannot pass on a failure of something else,
+            // such as the harness itself not compiling
+            assert process.trace.failed()*.name == ['SAMTOOLS_FASTQ (test)']
+        }
+    }
 }
